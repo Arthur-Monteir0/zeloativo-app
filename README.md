@@ -29,6 +29,8 @@ Antes de começar, certifique-se de ter o Python instalado. Recomendamos o uso d
 - [ ] **Configurações:** Vínculo de cuidador via código de 6 dígitos.
 Guia de Estilo & Acessibilidade (WCAG)
 Como o foco do ZeloAtivo é o público 60+, a escolha das cores e componentes segue critérios rigorosos de contraste e legibilidade, visando reduzir a carga cognitiva e facilitar a navegação.
+
+
 Cor,Hexadecimal,Papel no App,Observação de Acessibilidade
 Principal,#5CC6BA,Áreas decorativas e detalhes,Contraste baixo (~2.2:1). Nunca usar texto branco sobre ela.
 Secundária,#092C4C,Títulos e Textos,Cor base para leitura. Alto contraste sobre o fundo branco.
