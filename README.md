@@ -28,24 +28,14 @@ Antes de começar, certifique-se de ter o Python instalado. Recomendamos o uso d
 - [ ] **Monitoramento:** Tela de histórico semanal e "Semáforo de Saúde" para dependentes compartilhados.
 - [ ] **Configurações:** Vínculo de cuidador via código de 6 dígitos.
 
-## 🎨 Guia de Estilo & Acessibilidade (WCAG)
-
-Como o foco do **ZeloAtivo** é o público 60+, a escolha das cores segue critérios rigorosos de contraste e legibilidade:
-
-| Cor | Hexadecimal | Papel no App | Observação de Acessibilidade |
-| :--- | :--- | :--- | :--- |
-| **Principal** | `#5CC6BA` | Áreas decorativas / Detalhes | **Cuidado:** Contraste baixo (~2.2:1). **Não usar** texto branco sobre esta cor. |
-| **Fundo** | `#FFFFFF` | Telas e Cards | Mantém o visual limpo e facilita o descanso visual. |
-| **Texto/Secundária**| `#092C4C` | Títulos e Textos | **Cor ideal para leitura.** Alto contraste com o fundo branco. |
-| **Alerta/SOS** | `#FF222D` | Botão SOS e Atrasos | Alta visibilidade. Usada para ações críticas e urgências. |
-
-### ⚠️ Regras de Ouro para o Front-end:
-* **Tamanho de Fonte:** Mínimo de `18px` para textos de corpo e `24px` para títulos.
-* **Toque Facilitado:** Botões devem ter altura mínima de `55px` para facilitar o clique de pessoas com tremores leves ou dificuldade motora.
-* **Ícones:** Sempre acompanhados de texto (ex: Ícone de engrenagem + palavra "Ajustes").
-* **Contraste:** Sempre que usar a cor **Verde Água (#5CC6BA)** em um fundo, o texto sobre ele deve ser o **Azul Marinho (#092C4C)**, nunca branco.
-
-
+🎨 Guia de Estilo & Acessibilidade (WCAG)Como o foco do ZeloAtivo é o público 60+, a escolha das cores e componentes segue critérios rigorosos de contraste e legibilidade, visando reduzir a carga cognitiva e facilitar a navegação.Paleta de CoresCorHexadecimalPapel no AppObservação de AcessibilidadePrincipal#5CC6BAÁreas decorativas e detalhesContraste baixo (~2.2:1). Nunca usar texto branco sobre ela.Secundária#092C4CTítulos e TextosCor base para leitura. Alto contraste sobre o fundo branco.Terciária#FF7F50Botões de Ação (CTA)Cor de destaque para ações principais que não são urgências.Alerta/SOS#FF222DBotão SOS e AtrasosAlta visibilidade. Exclusiva para ações críticas e emergências.Fundo#FFFFFFTelas e CardsMantém o visual limpo e evita fadiga visual.⚠️ Regras de Ouro para o Front-endPara garantir a conformidade com as normas de acessibilidade, todo o desenvolvimento deve seguir estas diretrizes:Tipografia: * Corpo de texto: Mínimo de 18px.Títulos: Mínimo de 24px (chegando a 32px em destaques).Toque Facilitado (Target Size): * Botões devem ter altura mínima de 55px para facilitar o clique de pessoas com tremores leves ou dificuldades motoras finas.Acessibilidade Visual (Contraste):Sobre Verde Água (#5CC6BA): Usar sempre texto Azul Marinho (#092C4C).Sobre Coral (#FF7F50): Recomenda-se o uso de texto Azul Marinho para garantir o contraste AA em ações importantes.Semântica de Ícones:Ícones nunca devem estar sozinhos. Devem ser sempre acompanhados de rótulos de texto (ex: ⚙️ + "Ajustes").🛠️ Implementação Técnica (Flet)A lógica de cores está centralizada no arquivo theme.py, garantindo que todo o app respeite a identidade visual e os padrões de acessibilidade:Python# Trecho do theme.py
+color_scheme=ft.ColorScheme(
+    primary=AppColors.PRIMARY,
+    secondary=AppColors.SECONDARY,
+    error=AppColors.ALERT,
+    surface=AppColors.BACKGROUND, 
+    tertiary=AppColors.TERTIARY # Nova cor de destaque
+)
 ## Como rodar o projeto
 Para iniciar o app em modo de desenvolvimento (com hot reload):
 `flet run src/main.py`
