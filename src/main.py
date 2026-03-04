@@ -9,7 +9,10 @@ from views.register_view import register_view
 from views.auth_login_view import auth_login_view
 from views.shared_view import SharedView
 from views.meds_view import meds_view
-from views.vinculo_view import vinculo_view  # ✅ Nova importação
+from views.vinculo_view import vinculo_view 
+
+# ✅ Importando as novas views de configurações
+from views.settings_view import settings_main_view, edit_profile_view, link_dependent_view, alert_settings_view
 
 def main(page: ft.Page):
     # ---------------- CONFIGURAÇÕES GERAIS ----------------
@@ -24,10 +27,7 @@ def main(page: ft.Page):
     page.padding = 0
     page.spacing = 0
 
-    # ✅ ESSENCIAL PARA IMAGENS
     page.assets_dir = "assets"
-
-    # ✅ CORREÇÃO CORES
     page.bgcolor = ft.Colors.WHITE
 
     # ---------------- FUNÇÃO LAYOUT PRINCIPAL ----------------
@@ -58,7 +58,6 @@ def main(page: ft.Page):
                 spacing=0,
             )
         )
-
         page.update()
 
     # ---------------- TELAS PRINCIPAIS ----------------
@@ -66,19 +65,11 @@ def main(page: ft.Page):
     def go_to_home():
         home_content = ft.Column(
             [
-                ft.Text(
-                    "Início do ZeloAtivo",
-                    size=28,
-                    weight=ft.FontWeight.BOLD,
-                ),
-                ft.Text(
-                    "Sua lista de doses aparecerá aqui.",
-                    size=18,
-                ),
+                ft.Text("Início do ZeloAtivo", size=28, weight=ft.FontWeight.BOLD),
+                ft.Text("Sua lista de doses aparecerá aqui.", size=18),
             ],
             spacing=10,
         )
-
         load_app_layout(home_content, nav_index=0)
 
     def on_nav_change(index):
@@ -92,31 +83,42 @@ def main(page: ft.Page):
             load_app_layout(history_view(page), nav_index=2)
 
         elif index == 3:
-            # ✅ LÓGICA DE TRANSIÇÃO PARA O VÍNCULO
-            # Esta função interna será passada para a SharedView
+            # LÓGICA DE NAVEGAÇÃO DUPLA (INFO <-> CÓDIGO)
             def ir_para_gerar_codigo():
-                load_app_layout(vinculo_view(page), nav_index=3)
+                load_app_layout(vinculo_view(page, on_back_click=ir_para_info), nav_index=3)
 
-            # Carrega a tela informativa passando a função de clique do botão
-            load_app_layout(SharedView(page, ir_para_gerar_codigo), nav_index=3)
+            def ir_para_info():
+                load_app_layout(SharedView(page, on_vincular_click=ir_para_gerar_codigo), nav_index=3)
+
+            ir_para_info()
 
         elif index == 4:
-            settings_content = ft.Column(
-                [
-                    ft.Text(
-                        "Configurações",
-                        size=28,
-                        weight=ft.FontWeight.BOLD,
-                    ),
-                    ft.Text(
-                        "Configurações do usuário aparecerão aqui.",
-                        size=18,
-                    ),
-                ],
-                spacing=10,
-            )
+            # ✅ LÓGICA DE NAVEGAÇÃO DA ABA CONFIGURAÇÕES
+            
+            def ir_para_perfil():
+                load_app_layout(edit_profile_view(page, on_back=ir_para_main_settings), nav_index=4)
 
-            load_app_layout(settings_content, nav_index=4)
+            def ir_para_vincular_dep():
+                load_app_layout(link_dependent_view(page, on_back=ir_para_main_settings), nav_index=4)
+
+            def ir_para_alertas():
+                load_app_layout(alert_settings_view(page, on_back=ir_para_main_settings), nav_index=4)
+
+            def ir_para_main_settings():
+                # A função settings_main_view recebe os comandos para onde cada botão deve ir
+                load_app_layout(
+                    settings_main_view(
+                        page, 
+                        on_profile=ir_para_perfil, 
+                        on_link=ir_para_vincular_dep, 
+                        on_alert=ir_para_alertas, 
+                        on_logout=go_to_login_initial # Volta pro início absoluto!
+                    ), 
+                    nav_index=4
+                )
+
+            # Inicia mostrando o menu principal de configurações
+            ir_para_main_settings()
 
     # ---------------- FLUXO DE AUTENTICAÇÃO ----------------
 
