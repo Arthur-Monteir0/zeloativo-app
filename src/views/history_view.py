@@ -10,7 +10,7 @@ def history_view(page: ft.Page):
 
     selected_index = 3
 
-    # 🔹 FUNDO BRANCO DEFINITIVO
+    # 🔹 FUNDO
     history_container = ft.Container(
         expand=True,
         bgcolor="#FFFFFF",
